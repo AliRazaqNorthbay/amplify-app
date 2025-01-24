@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18  # Specify the required runtime
+    commands:
+      - echo "Installing AWS CLI and Amplify CLI"
+      - npm install -g @aws-amplify/cli
+      - amplify --version  # Confirm installation
+      - aws --version  # Confirm AWS CLI installation
+
+  pre_build:
+    commands:
+      - echo "Configuring AWS credentials"
+      - aws configure set aws_access_key_id AKIA4DMVQM4PWKMSKRKZ
+      - aws configure set aws_secret_access_key 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
+      - aws configure set region us-east-2
+
+  build:
+    commands:
+      - echo "Running build process"
+      - yarn install --frozen-lockfile
+      - yarn run build
+      - ls -al dist  # Verify built artifacts
+
+  post_build:
+    commands:
+      - echo "Starting deployment"
+      - amplify publish --app-id dh3ej504bw8br --branch-name main --yes
+      - echo "Deployment completed"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist  # Ensure the built files are correctly packaged for upload
+
+cache:
+  paths:
+    - node_modules/**/*
