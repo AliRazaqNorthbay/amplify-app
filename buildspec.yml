@@ -3,24 +3,20 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Adjust based on your project
+      nodejs: 18  # Adjust according to your project requirements
     commands:
       - echo "Checking AWS CLI installation..."
-      - if aws --version; then echo "AWS CLI is already installed, skipping installation."; else
-        echo "Installing AWS CLI...";
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
-        unzip awscliv2.zip;
-        sudo ./aws/install;
+      - if aws --version; then echo "AWS CLI is already installed, skipping installation."; else 
+        echo "Installing AWS CLI..."; 
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; 
+        unzip awscliv2.zip; 
+        sudo ./aws/install; 
         fi
       - aws --version  # Verify AWS CLI version
-      - echo "Using environment variables..."
-      - echo "AWS_ACCESS_KEY_ID is set."
-      - echo "AWS_SECRET_ACCESS_KEY is set."
-
-  build:
-    commands:
-      - echo "Validating AWS credentials..."
-      - aws sts get-caller-identity  # This verifies the credentials by querying the identity of the caller
+      - echo "AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID"
+      - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
+      - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
+      # Use the environment variables to authenticate or configure services as needed
 
 artifacts:
   baseDirectory: dist
