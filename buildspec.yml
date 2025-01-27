@@ -1,63 +1,59 @@
-# version: 0.2
-
-# phases:
-#   install:
-#     runtime-versions:
-#       nodejs: 18  # Specify the required runtime
-#     commands:
-#       - echo "Installing AWS CLI and Amplify CLI"
-#       - npm install -g @aws-amplify/cli
-#       - amplify --version  # Confirm installation
-#       - aws --version  # Confirm AWS CLI installation
-
-#   pre_build:
-#     commands:
-#       - echo "Configuring AWS credentials"
-#       - aws configure set aws_access_key_id AKIA4DMVQM4PWKMSKRKZ
-#       - aws configure set aws_secret_access_key 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
-#       - aws configure set region us-east-2
-
-#   build:
-#     commands:
-#       - echo "Running build process"
-#       - yarn install --frozen-lockfile
-#       - yarn run build
-#       - ls -al dist  # Verify built artifacts
-
-#   post_build:
-#     commands:
-#       - echo "Starting deployment"
-#       - amplify publish --app-id dh3ej504bw8br --branch-name main --yes
-#       - echo "Deployment completed"
-
-# artifacts:
-#   files:
-#     - '**/*'
-#   base-directory: dist  # Ensure the built files are correctly packaged for upload
-
-# cache:
-#   paths:
-#     - node_modules/**/*
-
 version: 0.2
-backend:
-  phases:
-    build:
-      commands:
-        - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --simple
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - yarn install --frozen-lockfile
-    build:
-      commands:
-        - yarn run build
-  artifacts:
-    baseDirectory: dist
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18  # Adjust according to your project requirements
+    commands:
+      - echo "Installing Amplify CLI..."
+      - npm install -g @aws-amplify/cli
+      - npm install
+      - echo "Configuring AWS CLI..."
+      - aws configure set aws_access_key_id "AKIATCKANDEJWEJATX5E"
+      - aws configure set aws_secret_access_key "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"
+      - aws configure set region "us-east-1"  # Adjust region if needed
+
+  build:
+    commands:
+      - echo "Pulling Amplify environment..."
+      - amplify pull --appId d2o0qumi8rq9fb --envName main --yes
+      - npm run build
+
+  post_build:
+    commands:
+      - echo "Deploying to Amplify..."
+      - amplify push --yes
+
+artifacts:
+  baseDirectory: dist  # Ensure this is correct for your project output folder
+  files:
+    - '**/*'
+
+cache:
+  paths:
+    - node_modules/**/*  # Cache node_modules to reuse dependencies
+
+
+
+# version: 0.2
+# backend:
+#   phases:
+#     build:
+#       commands:
+#         - '# Execute Amplify CLI with the helper script'
+#         - amplifyPush --simple
+# frontend:
+#   phases:
+#     preBuild:
+#       commands:
+#         - yarn install --frozen-lockfile
+#     build:
+#       commands:
+#         - yarn run build
+#   artifacts:
+#     baseDirectory: dist
+#     files:
+#       - '**/*'
+#   cache:
+#     paths:
+#       - node_modules/**/*
