@@ -16,7 +16,7 @@ phases:
   build:
     commands:
       - echo "Pulling Amplify environment..."
-      - amplify pull --app-id YOUR_AMPLIFY_APP_ID --env-name YOUR_ENV_NAME
+      - amplify pull --appId d2o0qumi8rq9fb --envName main --yes
       - npm run build
 
   post_build:
