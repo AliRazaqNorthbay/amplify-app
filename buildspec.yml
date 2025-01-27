@@ -19,14 +19,14 @@ phases:
       - echo "Configuring AWS CLI..."
       - mkdir -p ~/.aws
       - echo "[default]" > ~/.aws/credentials
-      - echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-      - echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+      - echo "aws_access_key_id=" $AWS_ACCESS_KEY_ID >> ~/.aws/credentials
+      - echo "aws_secret_access_key=" $AWS_SECRET_ACCESS_KEY >> ~/.aws/credentials
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - aws configure set region us-east-1  # Change to your AWS region
       - echo "[default]" > ~/.aws/credentials
-      - echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-      - echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
+      - echo "aws_access_key_id=" $AWS_ACCESS_KEY_ID >> ~/.aws/credentials
+      - echo "aws_secret_access_key=" $AWS_SECRET_ACCESS_KEY >> ~/.aws/credentials
 
   
 artifacts:
