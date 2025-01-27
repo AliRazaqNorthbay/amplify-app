@@ -9,8 +9,7 @@ phases:
       - npm install -g @aws-amplify/cli
       - npm install
       - echo "Configuring AWS CLI..."
-      - aws configure set aws_access_key_id "AKIATCKANDEJWEJATX5E"
-      - aws configure set aws_secret_access_key "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"
+
       - aws configure set region "us-east-1"  # Adjust region if needed
 
   build:
