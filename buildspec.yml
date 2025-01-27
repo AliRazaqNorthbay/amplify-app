@@ -35,8 +35,8 @@ phases:
       - npm run build
 
 
-    - echo "Deploying to Amplify..."
-    - amplify push --yes --profile default
+      - echo "Deploying to Amplify..."
+      - amplify push --yes --profile default
 
 artifacts:
   baseDirectory: dist
