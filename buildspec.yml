@@ -21,10 +21,7 @@ phases:
       - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
 
       # Assume the role that has Secrets Manager access
-      - CREDENTIALS=$(aws sts assume-role \
-        --role-arn arn:aws:iam::211125344531:role/RoleWithSecretsManagerAccess \
-        --role-session-name codebuild-session \
-        --duration-seconds 900)
+      -- CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::211125344531:role/service-role/codebuild-aws-amplify-code-build-service-role --role-session-name codebuild-session --duration-seconds 900))
       
       # - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r .Credentials.AccessKeyId)
       # - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r .Credentials.SecretAccessKey)
