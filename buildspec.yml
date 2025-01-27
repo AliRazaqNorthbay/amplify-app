@@ -3,41 +3,41 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Adjust according to your project requirements
+      nodejs: 18
     commands:
-      - echo "Checking AWS CLI installation..."
-      - |
-        if aws --version; then
-          echo "AWS CLI is already installed, skipping installation."
-        else
-          echo "Installing AWS CLI..."
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
+      - echo "Installing AWS CLI if not already installed..."
+      - if aws --version; then echo "AWS CLI is already installed."; else 
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
+        unzip awscliv2.zip; 
+        sudo ./aws/install;
         fi
-      - aws --version  # Verify AWS CLI version
-      - echo "Configuring AWS CLI..."
-      - mkdir -p ~/.aws
-      - echo "[default]" > ~/.aws/credentials
-      - echo "aws_access_key_id=" $AWS_ACCESS_KEY_ID >> ~/.aws/credentials
-      - echo "aws_secret_access_key=" $AWS_SECRET_ACCESS_KEY >> ~/.aws/credentials
-      - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
-      - CREDENTIALS=$(aws sts assume-role \
-        --role-arn arn:aws:iam::211125344531:role/codebuild-aws-amplify-code-build-service-role \
-        --role-session-name codebuild-session \
-        --duration-seconds 900)
+      - aws --version
+
+  pre_build:
+    commands:
+      - echo "Fetching secrets from AWS Secrets Manager..."
+      - SECRETS=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:211125344531:secret:aws-cred-IsEPiR --query SecretString --output text)
+      - export AWS_ACCESS_KEY_ID=$(echo $SECRETS | jq -r '.AWS_ACCESS_KEY_ID')
+      - export AWS_SECRET_ACCESS_KEY=$(echo $SECRETS | jq -r '.AWS_SECRET_ACCESS_KEY')
+      - echo "Secrets retrieved and environment variables set."
+
+  build:
+    commands:
+      - echo "Using retrieved AWS credentials..."
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - aws configure set region us-east-1  # Change to your AWS region
+      - aws configure set region us-east-1  # Change to your preferred AWS region
+      - echo "AWS credentials configured successfully."
 
 artifacts:
-  baseDirectory: dist  # Ensure this is correct for your project output folder
+  baseDirectory: dist
   files:
     - '**/*'
 
 cache:
   paths:
-    - node_modules/**/*  # Cache node_modules to reuse dependencies
+    - node_modules/**/*
+
 
 
 
