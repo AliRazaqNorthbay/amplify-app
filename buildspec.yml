@@ -23,11 +23,7 @@ phases:
       # Assume the role that has Secrets Manager access
       - CREDENTIALS=$(aws sts assume-role --role-arn arn:aws:iam::211125344531:role/service-role/codebuild-aws-amplify-code-build-service-role --role-session-name codebuild-session --duration-seconds 900)
       - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r .Credentials.AccessKeyId)
-      - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r .Credentials.SecretAccessKey)
-      - export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | jq -r .Credentials.SessionToken)
 
-      # Now fetch the secret value using the assumed credentials
-      - aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:us-east-1:211125344531:secret:aws-cred-IsEPiR
 
 artifacts:
   baseDirectory: dist
