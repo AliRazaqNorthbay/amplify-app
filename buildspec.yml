@@ -17,6 +17,12 @@ phases:
       - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
       - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
       # Use the environment variables to authenticate or configure services as needed
+      - aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
+      - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+      - aws configure set region us-east-1  # Change to your AWS region
+      - echo "AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID"
+      - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
+      - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
 
 artifacts:
   baseDirectory: dist
