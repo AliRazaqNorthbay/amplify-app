@@ -3,19 +3,20 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18  # Adjust according to your project requirements
+      nodejs: 18 # Adjust according to your project requirements
     commands:
       - echo "Installing Amplify CLI..."
       - npm install -g @aws-amplify/cli
       - npm install
       - echo "Configuring AWS CLI..."
-
-      - aws configure set region "us-east-1"  # Adjust region if needed
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - aws configure set region us-east-1  # Change to your AWS region
 
   build:
     commands:
       - echo "Pulling Amplify environment..."
-      - amplify pull --appId d2o0qumi8rq9fb --envName main --yes
+      - amplify pull --app-id YOUR_AMPLIFY_APP_ID --env-name YOUR_ENV_NAME
       - npm run build
 
   post_build:
