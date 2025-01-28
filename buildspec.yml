@@ -1,56 +1,40 @@
-version: 0.2
+version: 0.2  
 
-phases:
-  install:
-    runtime-versions:
-      nodejs: 18  # Adjust according to your project requirements
-    commands:
-      - echo "Checking AWS CLI installation..."
-      - if aws --version; then echo "AWS CLI is already installed, skipping installation."; else 
-        echo "Installing AWS CLI..."; 
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; 
-        unzip awscliv2.zip; 
-        sudo ./aws/install; 
-        fi
-      - aws --version  # Verify AWS CLI version
+phases:  
+  install:  
+    runtime-versions:  
+      nodejs: 18  # Adjust according to your project requirements  
+    commands:  
+      - echo "Checking AWS CLI installation..."  
+      - if aws --version; then echo "AWS CLI is already installed, skipping installation."; else  
+          echo "Installing AWS CLI...";  
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";  
+          unzip awscliv2.zip;  
+          sudo ./aws/install;  
+          fi  
+      - aws --version  # Verify AWS CLI version  
 
-      - echo "Installing Amplify CLI..."
-      - npm install -g @aws-amplify/cli
-      - npm install
-      
-      - echo "AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID"
-      - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
-      - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
-      # Use the environment variables to authenticate or configure services as needed
-      - aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"
-      - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-      - aws configure set region us-east-1  # Change to your AWS region
-      - echo "AWS_ACCESS_KEY_ID is $AWS_ACCESS_KEY_ID"
-      - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
-      - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
+      - echo "Installing Amplify CLI..."  
+      - npm install -g @aws-amplify/cli  
+      - npm install  
 
-      
-      - echo "Pulling Amplify environment..."
-      - amplify pull --appId d37roiyqb2q17o --envName main --yes --profile default || echo "Amplify pull failed"
+      - echo "Setting AWS credentials..."  
+      - aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID"  
+      - aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"  
+      - aws configure set region us-east-1  # Change to your AWS region  
 
-      - npm run build
-      
+      - echo "Pulling Amplify environment..."  
+      - amplify pull --appId d37roiyqb2q17o --envName main --yes --profile default || echo "Amplify pull failed"  
 
+      - echo "Building the project..."  
+      - npm run build  
 
+  post_build:  
+    commands:  
+      - echo "Deploying to Amplify..."  
+      - amplify push --yes --profile default || echo "Amplify push failed"  
+      - amplify publish --yes || echo "Amplify publish failed"  
 
-      - echo "Deploying to Amplify..."
-      - amplifyPush --simple --yes --profile default || echo "Amplify push failed"
-
-      - amplify publish --yes || echo "Amplify publish failed"
-
-
-
-artifacts:
-  baseDirectory: dist
-  files:
-    - '**/*'
-
-cache:
-  paths:
-    - node_modules/**/*  # Cache node_modules to reuse dependencies
-
+artifacts:  
+  files:  
+    - '/*'  # Include all files in the artifacts
