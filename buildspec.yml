@@ -55,3 +55,4 @@ artifacts:
 cache:
   paths:
     - node_modules/**/*  # Cache node_modules to reuse dependencies
+
