@@ -39,7 +39,7 @@ phases:
 
 
       - echo "Deploying to Amplify..."
-      - amplify push --yes --profile default || echo "Amplify push failed"
+      - amplifyPush --simple --yes --profile default || echo "Amplify push failed"
 
       - amplify publish --yes || echo "Amplify publish failed"
 
