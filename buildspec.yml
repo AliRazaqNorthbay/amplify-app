@@ -29,11 +29,11 @@ phases:
       - echo "AWS_SECRET_ACCESS_KEY is $AWS_SECRET_ACCESS_KEY"
       - echo "AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY are set."
 
-      - npm run build
+      
       - echo "Pulling Amplify environment..."
       - amplify pull --appId d2o0qumi8rq9fb --envName main --yes --profile default || echo "Amplify pull failed"
 
-    
+      - npm run build
 
 
       - echo "Deploying to Amplify..."
