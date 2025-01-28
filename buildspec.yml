@@ -36,8 +36,6 @@ phases:
       - npm run build
       
 
-      - amplify hosting add
-
 
 
       - echo "Deploying to Amplify..."
