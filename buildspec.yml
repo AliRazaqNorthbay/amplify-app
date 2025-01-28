@@ -39,9 +39,6 @@ phases:
       - echo "Deploying to Amplify..."
       - amplify push --yes --profile default || echo "Amplify push failed"
 
-      # Trigger frontend deployment to Amplify Hosting
-      - echo "Triggering deployment to Amplify Hosting..."
-      - amplify hosting add --yes || echo "Hosting configuration already exists."
       - amplify publish --yes || echo "Amplify publish failed"
 
 
