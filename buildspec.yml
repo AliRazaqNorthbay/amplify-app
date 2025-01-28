@@ -34,7 +34,7 @@ phases:
       - amplify pull --appId d2o0qumi8rq9fb --envName main --yes --profile default || echo "Amplify pull failed"
 
       - npm run build
-      - amplify hosting remove
+      
 
       - amplify hosting add
 
