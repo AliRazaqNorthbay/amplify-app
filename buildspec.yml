@@ -31,7 +31,7 @@ phases:
 
       
       - echo "Pulling Amplify environment..."
-      - amplify pull --appId d2o0qumi8rq9fb --envName main --yes --profile default || echo "Amplify pull failed"
+      - amplify pull --appId d37roiyqb2q17o --envName main --yes --profile default || echo "Amplify pull failed"
 
       - npm run build
       
