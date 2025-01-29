@@ -24,7 +24,7 @@ phases:
       - aws configure set region us-east-1  # Change to your AWS region  
 
       - echo "Pulling Amplify environment..."  
-      - amplify pull --appId d37roiyqb2q17o --envName main --yes --profile default || echo "Amplify pull failed"  
+      - amplify pull --appId d3nwx8ygwkxq9g --envName main --yes --profile default || echo "Amplify pull failed"  
 
       - echo "Building the project..."  
       - npm run build  
@@ -32,8 +32,8 @@ phases:
   post_build:  
     commands:  
       - echo "Deploying to Amplify..."  
-      - amplify push --yes --profile default || echo "Amplify push failed"  
-      - amplify publish --yes || echo "Amplify publish failed"  
+      - aws amplify start-job --app-id d3nwx8ygwkxq9g --branch-name main --job-type RELEASE
+
 
 artifacts:  
   files:  
