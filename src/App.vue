@@ -6,6 +6,7 @@
           <img src="https://aws-amplify.github.io/images/Logos/Amplify-Logo-White.svg" alt="AWS Amplify"/>
         </div>
         <h1>Welcome to the amplify framework</h1>
+        <h2>Welcome to the amplify framework3442</h2>
       </div>
       <amplify-authenticator>
         <div class="welcome">
