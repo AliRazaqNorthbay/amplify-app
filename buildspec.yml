@@ -32,12 +32,16 @@ phases:
       - echo "Zipping the build output..."
       - echo "Checking if the build directory exists..."  
       - ls -la  
-      - if [ -d "build" ]; then  
+      -- echo "Checking if the build directory exists..."  
+      - ls -la  
+      - |
+        if [ -d "build" ]; then  
           echo "Build directory found.";  
         else  
           echo "ERROR: Build directory not found!";  
           exit 1;  
-        fi  
+        fi
+
         
       - zip -r dist.zip build  
 
