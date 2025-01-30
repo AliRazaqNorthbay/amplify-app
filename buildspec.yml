@@ -28,11 +28,9 @@ phases:
 
       - echo "Building the project..."  
       - npm run build  
-
       - echo "Zipping the build output..."
+
       - echo "Checking if the build directory exists..."  
-      - ls -la  
-      -- echo "Checking if the build directory exists..."  
       - ls -la  
       - |
         if [ -d "build" ]; then  
@@ -40,9 +38,8 @@ phases:
         else  
           echo "ERROR: Build directory not found!";  
           exit 1;  
-        fi
+        fi  
 
-        
       - zip -r dist.zip build  
 
       - echo "Uploading build to S3..."  
