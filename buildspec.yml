@@ -30,11 +30,14 @@ phases:
       - npm run build  
       - echo "Zipping the build output..."
 
-      - echo "Verifying build output..."  
-      - ls -l  
-
-      - echo "Zipping the build output..."  
-      - if [ -d "build" ]; then zip -r build.zip build; else echo "Build directory not found!"; exit 1; fi  
+      - echo "Checking if build folder exists..."  
+      - if [ -d "build" ]; then  
+          echo "Build directory found.";  
+        else  
+          echo "Build directory not found! Listing available directories:";  
+          ls -l;  
+          exit 1;  
+        fi  
       
       - zip -r build.zip build  
 
