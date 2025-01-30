@@ -30,7 +30,6 @@ phases:
       - npm run build  
       - echo "Zipping the build output..."
 
-      # Debug: Check if the build directory exists  
       - echo "Checking if the build directory exists..."  
       - ls -la  
       - if [ -d "build" ]; then  
@@ -39,7 +38,6 @@ phases:
           echo "ERROR: Build directory not found!";  
           exit 1;  
         fi  
-
         
       - zip -r dist.zip build  
 
