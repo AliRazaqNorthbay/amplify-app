@@ -11,7 +11,7 @@ phases:
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";  
           unzip awscliv2.zip;  
           sudo ./aws/install;  
-          fi  
+        fi  
       - aws --version  # Verify AWS CLI version  
 
       - echo "Installing Amplify CLI..."  
@@ -28,8 +28,8 @@ phases:
 
       - echo "Building the project..."  
       - npm run build  
-      - echo "Zipping the build output..."
 
+      - echo "Zipping the build output..."
       - echo "Checking if the build directory exists..."  
       - ls -la  
       - if [ -d "build" ]; then  
@@ -49,8 +49,6 @@ phases:
       - echo "Deploying to Amplify..."  
       - aws amplify create-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/dist.zip  
 
-
 artifacts:  
   files:  
-    - '/*'  # Include all files in the artifacts
-
+    - '/*'  # Include all files in the artifacts
