@@ -30,24 +30,16 @@ phases:
       - npm run build  
       - echo "Zipping the build output..."
 
-      - echo "Checking if build folder exists..."  
-      - if [ -d "build" ]; then  
-          echo "Build directory found.";  
-        else  
-          echo "Build directory not found! Listing available directories:";  
-          ls -l;  
-          exit 1;  
-        fi  
-      
-      - zip -r build.zip build  
+        
+      - zip -r dist.zip build  
 
       - echo "Uploading build to S3..."  
-      - aws s3 cp build.zip s3://amplify-code-build/build.zip  
+      - aws s3 cp dist.zip s3://amplify-code-build/dist.zip  
 
   post_build:  
     commands:  
       - echo "Deploying to Amplify..."  
-      - aws amplify create-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/build.zip  
+      - aws amplify create-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/dist.zip  
 
 
 artifacts:  
