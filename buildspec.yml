@@ -43,12 +43,12 @@ phases:
       - zip -r dist.zip dist  
 
       - echo "Uploading build to S3..."  
-      - aws s3 cp dist.zip s3://amplify-code-build/dist.zip  
+      # - aws s3 cp dist.zip s3://amplify-code-build/dist.zip  
 
   post_build:  
     commands:  
       - echo "Deploying to Amplify..."  
-      - aws amplify start-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/dist.zip
+      # - aws amplify start-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/dist.zip
 artifacts:  
   files:  
     - '/*'  # Include all files in the artifacts
