@@ -48,8 +48,7 @@ phases:
   post_build:  
     commands:  
       - echo "Deploying to Amplify..."  
-      - aws amplify create-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/dist.zip  
-
+      - aws amplify start-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source s3://amplify-code-build/dist.zip
 artifacts:  
   files:  
     - '/*'  # Include all files in the artifacts
