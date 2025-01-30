@@ -28,7 +28,14 @@ phases:
 
       - echo "Building the project..."  
       - npm run build  
+      - echo "Zipping the build output..."
+
+      - echo "Verifying build output..."  
+      - ls -l  
+
       - echo "Zipping the build output..."  
+      - if [ -d "build" ]; then zip -r build.zip build; else echo "Build directory not found!"; exit 1; fi  
+      
       - zip -r build.zip build  
 
       - echo "Uploading build to S3..."  
