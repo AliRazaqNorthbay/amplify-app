@@ -28,11 +28,16 @@ phases:
 
       - echo "Building the project..."  
       - npm run build  
+      - echo "Zipping the build output..."  
+      - zip -r build.zip build  
+
+      - echo "Uploading build to S3..."  
+      - aws s3 cp build.zip s3://amplify-code-build/build.zip  
 
   post_build:  
     commands:  
       - echo "Deploying to Amplify..."  
-      - aws amplify start-job --app-id d3nwx8ygwkxq9g --branch-name main --job-type RELEASE
+      - aws amplify create-deployment --app-id d3nwx8ygwkxq9g --branch-name main --source-url s3://amplify-code-build/build.zip  
 
 
 artifacts:  
